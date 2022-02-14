@@ -18,7 +18,7 @@ describe('RadarController', () => {
   });
 
   it('should fail without parameters', () => {
-    const err = new HttpException('Missing parameters', HttpStatus.BAD_REQUEST);
+    const err = new HttpException('Wrong parameters', HttpStatus.BAD_REQUEST);
 
     try {
       radarController.processRadar({});

@@ -13,3 +13,9 @@ export const protocolsMap = {
   'furthest-enemies': FurthestEnemiesProtocolModel,
   'prioritize-mech': PrioritizeMechProtocolModel,
 };
+
+export const incompatibleProtocols = [
+  ['closest-enemies', 'furthest-enemies'],
+  ['assist-allies', 'avoid-crossfire'],
+  ['avoid-mech', 'prioritize-mech'],
+];

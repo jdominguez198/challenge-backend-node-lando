@@ -21,7 +21,7 @@ export class RadarController {
   @HttpCode(200)
   processRadar(@Body() parameters: any): CoordinateModel {
     if (!this.validationService.validate(parameters)) {
-      throw new HttpException('Missing parameters', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Wrong parameters', HttpStatus.BAD_REQUEST);
     }
 
     const { protocols, scan } = parameters;
