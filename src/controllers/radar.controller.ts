@@ -1,28 +1,31 @@
 import {
   Body,
   Controller,
+  HttpCode,
   HttpException,
   HttpStatus,
   Post,
 } from '@nestjs/common';
 import { ValidationService } from '../services/validation.service';
-import { AttackCalculatorService } from '../services/attack-calculator.service';
+import { ScanService } from '../services/scan.service';
+import { CoordinateModel } from '../models/coordinate.model';
 
 @Controller()
 export class RadarController {
   constructor(
     protected validationService: ValidationService,
-    protected attackCalculatorService: AttackCalculatorService,
+    protected scanService: ScanService,
   ) {}
 
   @Post('radar')
-  processRadar(@Body() parameters: any): any {
-    const { protocols, scan } = parameters;
-
-    if (!this.validationService.validate()) {
+  @HttpCode(200)
+  processRadar(@Body() parameters: any): CoordinateModel {
+    if (!this.validationService.validate(parameters)) {
       throw new HttpException('Missing parameters', HttpStatus.BAD_REQUEST);
     }
 
-    return this.attackCalculatorService.getTargetCoordinates(protocols, scan);
+    const { protocols, scan } = parameters;
+
+    return this.scanService.getTargetCoordinates(protocols, scan);
   }
 }
